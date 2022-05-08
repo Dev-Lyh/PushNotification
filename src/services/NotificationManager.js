@@ -70,23 +70,23 @@ class NotificationManager {
   // Fução que exibe a notificação
   showNotification = (id, title, message, data = {}, options = {}) => {
 
-    PushNotification.localNotificationSchedule({
+    PushNotification.localNotification({
       /* Propriedades do Android */
       ...this.buildAndroidNotification(id, title, message, data, options),
 
 
       /* Propriedades do Android e iOS */
-      id: id || '',
+      id: id || '1',
       channelId: 'PushNotification',
       title: title || '',
       message: message || '',
-      date: new Date(Date.now() + 15000),
+      // date: new Date(Date.now() + 120000),
       playSound: options.playSound || true,
       soundName: options.soundName || 'default',
       userInteraction: false,
       allowWhileIdle: false,
-      repeatType: 'time',
-      repeatTime: 15000,
+      // repeatType: 'time',
+      // repeatTime: 120000,
     });
   };
 
@@ -98,7 +98,7 @@ class NotificationManager {
 
 
       /* Propriedades do Android e iOS */
-      id: id || '',
+      id: id || '1',
       channelId: 'PushNotification',
       title: title || '',
       message: message || '',
@@ -112,8 +112,8 @@ class NotificationManager {
   // Função que cancela todas notiificações e limpa as que estão no centro de notificações
   cancelAllLocalNotification = (intervalID) => {
     clearInterval(intervalID);
-    // PushNotification.deleteChannel('PushNotification');
-    PushNotification.cancelAllLocalNotifications('1');
+    PushNotification.deleteChannel('PushNotification');
+    PushNotification.cancelAllLocalNotifications();
     PushNotification.cancelLocalNotification('1');
     // PushNotification.cancelAllLocalNotifications();
   };
